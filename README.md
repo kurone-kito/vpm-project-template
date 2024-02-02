@@ -34,3 +34,7 @@ Some other notes:
   - Your packages should be in the "Packages" directory.
   - If you deviate from this folder structure, you'll need to update the paths that assume your package is in the "Packages" directory on lines 24, 38, 41 and 57.
 - If you want to store and generate your web files in a folder other than "Website" in the root, you can change the `listPublicDirectory` item [here in build-listing.yml](.github/workflows/build-listing.yml#L17).
+
+## License
+
+This repository is licensed under the [MIT License](LICENSE).
