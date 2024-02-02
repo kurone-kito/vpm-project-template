@@ -10,4 +10,5 @@
 
 .gitattributes export-ignore
 .github export-ignore
+.gitignore export-ignore
 .gitkeep export-ignore
