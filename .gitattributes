@@ -12,3 +12,4 @@
 .github export-ignore
 .gitignore export-ignore
 .gitkeep export-ignore
+reviewpad.yml export-ignore

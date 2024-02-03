@@ -48,5 +48,10 @@
     "tag:unity3d.com,2011:1045 mapping",
     "tag:unity3d.com,2011:937362698 mapping",
     "tag:unity3d.com,2011:1386491679 mapping"
-  ]
+  ],
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/reviewpad/schemas/main/latest/schema.json": [
+      "reviewpad.yml"
+    ]
+  }
 }
