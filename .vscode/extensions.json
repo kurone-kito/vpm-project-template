@@ -1,5 +1,6 @@
 {
   "recommendations": [
+    "editorconfig.editorconfig",
     "redhat.vscode-yaml",
     "streetsidesoftware.code-spell-checker",
     "visualstudiotoolsforunity.vstuc"
