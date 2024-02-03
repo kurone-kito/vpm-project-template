@@ -1,3 +1,7 @@
 {
-  "recommendations": ["redhat.vscode-yaml", "visualstudiotoolsforunity.vstuc"]
+  "recommendations": [
+    "redhat.vscode-yaml",
+    "streetsidesoftware.code-spell-checker",
+    "visualstudiotoolsforunity.vstuc"
+  ]
 }
