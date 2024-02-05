@@ -16,6 +16,7 @@ ignorePaths:
   - .git
   - .github/CODE_OF_CONDUCT.*
   - .vscode/extensions.json
+  - Assets/XR
   - cspell.config.yml
   - Packages/com.*
   - Packages/*.json

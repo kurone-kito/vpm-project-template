@@ -194,3 +194,10 @@ $RECYCLE.BIN/
 ### Unity ###
 # Example scenes
 [Aa]ssets/Scenes*
+
+# UdonSharp
+[Aa]ssets/SerializedUdonPrograms*
+[Aa]ssets/UdonSharp/PrefabBuild*
+
+# Others
+debug.log*

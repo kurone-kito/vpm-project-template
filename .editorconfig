@@ -31,3 +31,9 @@ insert_final_newline = false
 
 [ProjectSettings/Packages/**.json]
 indent_size = 4
+
+[ProjectSettings/SceneTemplateSettings.json]
+indent_size = 4
+
+[ProjectSettings/XR*.asset]
+indent_size = 4
