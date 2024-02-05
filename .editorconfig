@@ -26,6 +26,9 @@ generated_code = true
 [Packages/com.*/**]
 insert_final_newline = false
 
+[Packages/dev.*/**]
+insert_final_newline = false
+
 [ProjectSettings/**]
 insert_final_newline = false
 

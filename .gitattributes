@@ -1,5 +1,7 @@
+/Assets/UdonSharp/** linguist-vendored
 /Packages/*.json linguist-vendored
 /Packages/com.*/** linguist-vendored
+/Packages/dev.*/** linguist-vendored
 /ProjectSettings/** linguist-vendored
 
 *.asset merge=unityyamlmerge filter=vrc eol=lf text

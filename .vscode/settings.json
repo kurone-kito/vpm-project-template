@@ -8,6 +8,7 @@
   },
   "files.readonlyInclude": {
     "Packages/com.*/**": true,
+    "Packages/dev.*/**": true,
     "Packages/*.json": true,
     "ProjectSettings/**": true
   },
