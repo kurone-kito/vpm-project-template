@@ -1,8 +1,11 @@
 {
+  "dotnet.preferCSharpExtension": true,
   "files.associations": {
     "*.asmdef": "json",
     "*.asset": "yaml",
+    "*.mat": "yaml",
     "*.meta": "yaml",
+    "*.prefab": "yaml",
     "*.uss": "css",
     "LICENSE": "plaintext"
   },
