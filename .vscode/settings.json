@@ -1,8 +1,11 @@
 {
+  "dotnet.preferCSharpExtension": true,
   "files.associations": {
     "*.asmdef": "json",
     "*.asset": "yaml",
+    "*.mat": "yaml",
     "*.meta": "yaml",
+    "*.prefab": "yaml",
     "*.uss": "css",
     "LICENSE": "plaintext"
   },
@@ -54,8 +57,8 @@
     "tag:unity3d.com,2011:1386491679 mapping"
   ],
   "yaml.schemas": {
-    "https://raw.githubusercontent.com/reviewpad/schemas/main/latest/schema.json": [
-      "reviewpad.yml"
+    "https://coderabbit.ai/integrations/coderabbit-overrides.v2.json": [
+      ".coderabbit.yaml"
     ],
     "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/packages/cspell-types/cspell.schema.json": [
       "cspell.config.yml"
