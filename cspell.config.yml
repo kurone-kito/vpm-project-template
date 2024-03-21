@@ -10,8 +10,6 @@ enableGlobDot: true
 features:
   weighted-suggestions: true
 globRoot: ${cwd}
-id: kurone-kito
-language: en,ja
 ignorePaths:
   - .git
   - .github/CODE_OF_CONDUCT.*
@@ -23,6 +21,11 @@ ignorePaths:
   - Packages/dev.*
   - Packages/*.json
   - ProjectSettings
+ignoreRegExpList:
+  - (avtr|wrld)_([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{12})
+language: en,ja
+useGitignore: true
+version: '0.2'
 words:
   - kito
   - kuroné
@@ -31,5 +34,3 @@ words:
   - udon
   - vrcsdk
   - vrchat
-useGitignore: true
-version: '0.2'
