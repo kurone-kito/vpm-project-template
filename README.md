@@ -6,15 +6,14 @@ My template for the VPM project (for VRChat worlds creation)
 
 ### 1. Import the registry via the VRChat Creator Companion (VCC)
 
-(To be added)
+Visit the **[VPM Catalogue page](https://kurone-kito.github.io/vpm/)** and click on the **Add to VCC** button.
 
 ### 2. Import the package to your project
 
-(To be added)
+1. Click on the "Manage Project" button in the VCC
+2. Find the "VRChat Example Package" package and click on the "(+) Add package" button
 
 ### 3. Use the package, enjoy :D
-
-(To be added)
 
 ## 🤖 Setting up the Automation
 
@@ -34,6 +33,11 @@ Some other notes:
   - Your packages should be in the "Packages" directory.
   - If you deviate from this folder structure, you'll need to update the paths that assume your package is in the "Packages" directory on lines 24, 38, 41 and 57.
 - If you want to store and generate your web files in a folder other than "Website" in the root, you can change the `listPublicDirectory` item [here in build-listing.yml](.github/workflows/build-listing.yml#L17).
+
+## Contributing
+
+Welcome to contribute to this repository! For more details,
+please refer to [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 
 ## License
 
