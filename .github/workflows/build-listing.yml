@@ -12,13 +12,13 @@ on:
     types:
       - completed
   release:
-     types:
-        - created
-        - deleted
-        - edited
-        - published
-        - released
-        - unpublished
+    types:
+      - created
+      - deleted
+      - edited
+      - published
+      - released
+      - unpublished
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -28,7 +28,7 @@ permissions:
 
 # Allow one concurrent deployment
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: true
 
 jobs:
@@ -70,3 +70,9 @@ jobs:
       - name: Deploy the uploaded VPM Listing Website to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Trigger the action of the curation repository
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          event-type: build-listing
+          repository: kurone-kito/vpm
+          token: ${{ secrets.REPO_TOKEN }}

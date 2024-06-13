@@ -6,6 +6,7 @@ dictionaries:
   - en-gb
   - en-us
   - fsharp
+  - php
 enableGlobDot: true
 features:
   weighted-suggestions: true
@@ -25,12 +26,14 @@ ignoreRegExpList:
   - (avtr|wrld)_([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{12})
 language: en,ja
 useGitignore: true
-version: '0.2'
+version: "0.2"
 words:
   - kito
   - kuroné
   - nunit
   - scriban
+  - spatialize
   - udon
   - vrcsdk
   - vrchat
+  - vstuc
