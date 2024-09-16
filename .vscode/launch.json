@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "Attach to Unity",
-      "type": "vstuc",
-      "request": "attach"
+      "request": "attach",
+      "type": "vstuc"
     }
   ]
 }
