@@ -2,6 +2,16 @@
 
 My template for the VPM project (for VRChat worlds creation)
 
+## 💭 Difference from original template
+
+- Added some linters e.g. CSpell, EditorConfig, Markdownlint
+- Added some actions e.g. CodeQL, CodeRabbit.AI, Dependabot
+- Auto invoke the VPM registry update when the package is updated
+- Improved a deployment process with GPG signing
+- Improved a GitHub Actions for testing and building
+- Improved the git attributes and ignore files
+- and more...
+
 ## ▶ Getting Started
 
 ### 1. Import the registry via the VRChat Creator Companion (VCC)
