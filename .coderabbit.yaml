@@ -6,7 +6,9 @@ reviews:
   auto_review:
     enabled: true
   path_filters:
-    - "!Assets"
+    - '!Assets/TextMesh Pro/**/*'
+    - '!Assets/UdonSharp/**/*'
+    - '!Assets/XR/**/*'
     - "!Packages/com.vrchat.core.*/**/*"
     - "!ProjectSettings"
   path_instructions:
