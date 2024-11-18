@@ -48,7 +48,7 @@ jobs:
           path: ${{ env.pathToCi }}
           clean: false
       - name: Deploy the global.json file
-        run: cp ${{ github.workspace }}/global.json ${{ env.pathToCi }}/
+        run: cp "${{ github.workspace }}/global.json" "${{ env.pathToCi }}/"
       - name: Load cached data from previous runs
         uses: actions/cache@v4
         with:
@@ -57,7 +57,7 @@ jobs:
             ~/.nuget/packages
           key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
       - name: Build Package Version Listing with Nuke
-        run: ${{ env.pathToCi }}/build.cmd BuildRepoListing --root ${{ env.pathToCi }} --list-publish-directory $GITHUB_WORKSPACE/${{ env.listPublishDirectory }} --current-package-name ${{ vars.PACKAGE_NAME }}
+        run: '"${{ env.pathToCi }}/build.cmd" BuildRepoListing --root "${{ env.pathToCi }}" --list-publish-directory "$GITHUB_WORKSPACE/${{ env.listPublishDirectory }}" --current-package-name "${{ vars.PACKAGE_NAME }}"'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Prepare for GitHub Pages deployment
