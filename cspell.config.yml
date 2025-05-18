@@ -6,12 +6,18 @@ dictionaries:
   - en-gb
   - en-us
   - fsharp
+  - git
+  - lorem-ipsum
+  - markdown
+  - misc
   - php
+  - softwareTerms
 enableGlobDot: true
 features:
   weighted-suggestions: true
 globRoot: ${cwd}
 ignorePaths:
+  - .*ignore
   - .git
   - .github/CODE_OF_CONDUCT.*
   - .vscode/extensions.json
@@ -29,6 +35,7 @@ useGitignore: true
 version: "0.2"
 words:
   - dwlt
+  - imgbotconfig
   - kito
   - kuroné
   - msaa
