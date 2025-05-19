@@ -9,8 +9,8 @@ reviews:
     - '!Assets/TextMesh Pro/**/*'
     - '!Assets/UdonSharp/**/*'
     - '!Assets/XR/**/*'
-    - "!Packages/com.vrchat.core.*/**/*"
-    - "!ProjectSettings"
+    - '!Packages/com.vrchat.core.*/**/*'
+    - '!ProjectSettings/**/*'
   path_instructions:
     - instructions: This folder contains C# files, but these are UdonSharp and have different restrictions than standard C#. Please review with this in mind.
       path: Assets/black.kit.*/Runtime/**/*

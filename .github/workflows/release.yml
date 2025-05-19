@@ -21,10 +21,10 @@ jobs:
   build:
     env:
       packagePath: Packages/${{ vars.PACKAGE_NAME }}
-      stableVersion:
-      unityPackage:
-      version:
-      zipFile:
+      stableVersion: ''
+      unityPackage: ''
+      version: ''
+      zipFile: ''
     if: needs.config.outputs.config_package == 'true'
     needs: config
     permissions:
@@ -72,7 +72,7 @@ jobs:
           include-files: metaList
           package-path: ${{ env.unityPackage }}
       - name: Zip the UnityPackage for release
-        run: zip -r -9 "${{ env.unityPackage }}.zip" ${{ env.unityPackage }} LICENSE README.md
+        run: zip -r -9 "${{ env.unityPackage }}.zip" "${{ env.unityPackage }}" LICENSE README.md
       - env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         name: Sign the artifacts

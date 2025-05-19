@@ -8,13 +8,13 @@ permissions:
   contents: read
 jobs:
   build:
-    runs-on: ubuntu-latest
     env:
       listPublishDirectory: Website
       packagePath: Packages/${{ vars.PACKAGE_NAME }}
       pathToCi: ci
       unityPackage: ${{ vars.PACKAGE_NAME }}-feature.unitypackage
       zipFile: ${{ vars.PACKAGE_NAME }}-feature.zip
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Local Repository
         uses: actions/checkout@v4
