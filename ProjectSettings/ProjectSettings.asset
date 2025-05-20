@@ -163,6 +163,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: black.kit.template
     Standalone: black.kit.template
+    iPhone: black.kit.template
   buildNumber:
     Standalone: 0
     VisionOS: 0
