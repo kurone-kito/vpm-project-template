@@ -6,12 +6,15 @@ dictionaries:
   - en-gb
   - en-us
   - fsharp
+  - game-development
+  - gaming-terms
   - git
   - lorem-ipsum
   - markdown
   - misc
   - php
   - softwareTerms
+  - unity
 enableGlobDot: true
 features:
   weighted-suggestions: true
@@ -43,6 +46,8 @@ words:
   - scriban
   - spatialize
   - udon
+  - unityyamlmerge
   - vrchat
   - vrcsdk
   - vstuc
+  - wrld
