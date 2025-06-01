@@ -21,10 +21,10 @@ jobs:
   build:
     env:
       packagePath: Packages/${{ vars.PACKAGE_NAME }}
-      stableVersion:
-      unityPackage:
-      version:
-      zipFile:
+      stableVersion: ''
+      unityPackage: ''
+      version: ''
+      zipFile: ''
     if: needs.config.outputs.config_package == 'true'
     needs: config
     permissions:
@@ -41,6 +41,8 @@ jobs:
           trust_level: 5
       - name: Checkout Local Repository
         uses: actions/checkout@v4
+      - name: copy the README and LICENSE files to the Package folder
+        run: cp README.md LICENSE "${{ env.packagePath }}"
       - id: version
         name: Get the Package version based on the package.json file
         # cspell: disable-next-line
@@ -72,7 +74,7 @@ jobs:
           include-files: metaList
           package-path: ${{ env.unityPackage }}
       - name: Zip the UnityPackage for release
-        run: zip -r -9 "${{ env.unityPackage }}.zip" ${{ env.unityPackage }} LICENSE README.md
+        run: zip -r -9 "${{ env.unityPackage }}.zip" "${{ env.unityPackage }}" LICENSE README.md
       - env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         name: Sign the artifacts

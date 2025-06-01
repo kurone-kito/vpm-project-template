@@ -1,4 +1,4 @@
-# Contributing for project
+# Contributing to this project
 
 Language: **🇬🇧** | [🇯🇵](./CONTRIBUTING.ja.md) | [🇨🇳](./CONTRIBUTING.zh.md)
 
@@ -12,5 +12,8 @@ Language: **🇬🇧** | [🇯🇵](./CONTRIBUTING.ja.md) | [🇨🇳](./CONTRIB
    other method with the owners of this repository before making a change.
 3. If your idea can be shown **with a minor fix, please use directly the
    [pull request](https://github.com/kurone-kito/vpm-project-template/pulls)**.
+   - This repository sometimes operates with a one-to-one tie between pull
+     requests and releases, which is **not required**.  
+     We welcome your pull requests.
 4. In this repository, discussion
    **[in English or Japanese](https://translate.google.com/) is recommended**.

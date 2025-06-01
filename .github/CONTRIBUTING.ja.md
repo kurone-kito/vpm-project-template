@@ -12,6 +12,8 @@ Language: [🇬🇧](./CONTRIBUTING.md) | **🇯🇵** | [🇨🇳](./CONTRIBUTI
 3. もしあなたのアイデアが**小さな修正で示せるのなら、
    [Pull request](https://github.com/kurone-kito/vpm-project-template/pulls)
    を直接活用**してください。
+   - このリポジトリでは、時々プルリクエストとリリースとを一対一で紐づけて運用しがちですが、
+     それは**必須ではありません**。お気軽なプルリクエストをお待ちしています。
 4. このリポジトリでは、できる限り
    **[英語、または日本語](https://translate.google.com/)
    での議論**を推奨しています。
