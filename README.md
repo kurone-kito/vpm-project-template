@@ -27,6 +27,30 @@ click on the **Add to VCC** button.
 
 ### 3. Use the package, enjoy :D
 
+## 🛠 Using `git vrc` Filter
+
+This project uses a custom git filter named `git vrc` to normalize Unity
+files such as `.asset`, `.prefab`, and `.unity`. The filter removes
+unstable data so diffs stay readable and merges remain smooth.
+
+### Install and configure
+
+#### 1. Install the `git-vrc` package
+
+```sh
+cargo install --locked --git 'https://github.com/anatawa12/git-vrc.git'
+git vrc install --config --global
+```
+
+#### 2. Make the `.gitconfig` file available for referencing from local `.git/config`
+
+```sh
+git config include.path '../.gitconfig'
+```
+
+The `.gitattributes` file in this repository already applies the filter to
+Unity YAML files.
+
 ## 🤖 Setting up the Automation
 
 Create a repository variable with the name and value described below.
@@ -52,8 +76,8 @@ Some other notes:
     paths that assume your package is in the "Packages" directory on lines
     24, 38, 41 and 57.
 - If you want to store and generate your web files in a folder other than
-  "Website" in the root, you can change the `listPublicDirectory` item
-  [here in build-listing.yml](.github/workflows/build-listing.yml#L17).
+  "Website" in the root, edit the `listPublishDirectory` value in
+  [.github/workflows/build-listing.yml](.github/workflows/build-listing.yml).
 
 ## Contributing
 
