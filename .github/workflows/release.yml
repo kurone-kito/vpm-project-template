@@ -75,13 +75,11 @@ jobs:
           package-path: ${{ env.unityPackage }}
       - name: Zip the UnityPackage for release
         run: zip -r -9 "${{ env.unityPackage }}.zip" "${{ env.unityPackage }}" LICENSE README.md
-      - env:
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-        name: Sign the artifacts
+      - name: Sign the artifacts
         run: |
-          echo "${GPG_PASSPHRASE}" | gpg --batch -ab "${{ env.zipFile }}"
-          echo "${GPG_PASSPHRASE}" | gpg --batch -ab "${{ env.unityPackage }}"
-          echo "${GPG_PASSPHRASE}" | gpg --batch -ab "${{ env.unityPackage }}.zip"
+          gpg --batch --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" -ab "${{ env.zipFile }}"
+          gpg --batch --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" -ab "${{ env.unityPackage }}"
+          gpg --batch --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" -ab "${{ env.unityPackage }}.zip"
       - id: tag_version
         name: Create a release tag of the version from the package.json file
         # cspell: disable-next-line
