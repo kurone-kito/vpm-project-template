@@ -7,6 +7,14 @@ on:
 permissions:
   contents: read
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run cspell
+        uses: streetsidesoftware/cspell-action@v7
+      - name: Run markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v20
   build:
     env:
       listPublishDirectory: Website
