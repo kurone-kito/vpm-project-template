@@ -4,6 +4,7 @@ dictionaries:
   - csharp
   - dotnet
   - en-gb
+  - en_shared
   - en-us
   - fsharp
   - game-development
@@ -27,6 +28,7 @@ ignorePaths:
   - Assets/UdonSharp
   - Assets/XR
   - cspell.config.yml
+  - Library
   - Packages/com.*
   - Packages/dev.*
   - Packages/*.json
@@ -45,9 +47,7 @@ words:
   - nunit
   - scriban
   - spatialize
-  - udon
   - unityyamlmerge
   - vrchat
   - vrcsdk
   - vstuc
-  - wrld
