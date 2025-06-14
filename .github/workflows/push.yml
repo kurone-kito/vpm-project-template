@@ -22,41 +22,10 @@ jobs:
       unityPackage: ${{ vars.PACKAGE_NAME }}-feature.unitypackage
       zipFile: ${{ vars.PACKAGE_NAME }}-feature.zip
   build:
-    env:
-      listPublishDirectory: Website
-      packagePath: Packages/${{ vars.PACKAGE_NAME }}
-      pathToCi: ci
-      unityPackage: ${{ vars.PACKAGE_NAME }}-feature.unitypackage
-      zipFile: ${{ vars.PACKAGE_NAME }}-feature.zip
     needs: package
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Local Repository
-        uses: actions/checkout@v4
-      - name: Download package archive
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ env.zipFile }}
-      - name: Download UnityPackage
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ env.unityPackage }}
-      - name: Checkout Automation Repository without removing prior checkouts
-        uses: actions/checkout@v4
-        with:
-          clean: false
-          path: ${{ env.pathToCi }}
-          repository: vrchat-community/package-list-action
-      - name: Deploy the global.json file
-        run: cp "${{ github.workspace }}/global.json" "${{ env.pathToCi }}/"
-      - name: Load cached data from previous runs
-        uses: actions/cache@v4
-        with:
-          key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
-          path: |
-            ${{ env.pathToCi }}/.nuke/temp
-            ~/.nuget/packages
-      - env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        name: Build Package Version Listing with Nuke
-        run: '"${{ env.pathToCi }}/build.cmd" BuildRepoListing --root "${{ env.pathToCi }}" --list-publish-directory "$GITHUB_WORKSPACE/${{ env.listPublishDirectory }}" --current-package-name "${{ vars.PACKAGE_NAME }}"'
+    uses: ./.github/workflows/build-website.yml
+    with:
+      listPublishDirectory: Website
+      pathToCi: ci
+      zipFile: ${{ vars.PACKAGE_NAME }}-feature.zip
+      unityPackage: ${{ vars.PACKAGE_NAME }}-feature.unitypackage
