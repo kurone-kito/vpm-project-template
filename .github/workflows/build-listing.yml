@@ -32,34 +32,23 @@ concurrency:
   group: pages
 
 jobs:
-  build-listing:
+  build:
+    uses: ./.github/workflows/build-website.yml
+    with:
+      listPublishDirectory: Website
+      pathToCi: ci
+
+  deploy:
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    name: build-listing
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Local Repository
-        uses: actions/checkout@v4
-      - name: Checkout Automation Repository without removing prior checkouts
-        uses: actions/checkout@v4
+      - name: Download listing artifact
+        uses: actions/download-artifact@v4
         with:
-          clean: false
-          path: ${{ env.pathToCi }}
-          repository: vrchat-community/package-list-action
-      - name: Deploy the global.json file
-        run: cp "${{ github.workspace }}/global.json" "${{ env.pathToCi }}/"
-      - name: Load cached data from previous runs
-        uses: actions/cache@v4
-        with:
-          key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
-          path: |
-            ${{ env.pathToCi }}/.nuke/temp
-            ~/.nuget/packages
-      - env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        name: Build Package Version Listing with Nuke
-        run: '"${{ env.pathToCi }}/build.cmd" BuildRepoListing --root "${{ env.pathToCi }}" --list-publish-directory "$GITHUB_WORKSPACE/${{ env.listPublishDirectory }}" --current-package-name "${{ vars.PACKAGE_NAME }}"'
+          name: listing-site
       - name: Prepare for GitHub Pages deployment
         uses: actions/configure-pages@v5
         with:
