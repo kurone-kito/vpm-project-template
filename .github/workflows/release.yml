@@ -2,7 +2,9 @@ name: Build Release
 
 on:
   workflow_dispatch:
-
+permissions:
+  actions: write
+  contents: write
 jobs:
   config:
     outputs:
@@ -74,8 +76,6 @@ jobs:
       - config
       - prepare
       - package
-    permissions:
-      contents: write
     runs-on: ubuntu-latest
     steps:
       - id: gpg

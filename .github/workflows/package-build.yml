@@ -12,7 +12,9 @@ on:
       zipFile:
         required: true
         type: string
-
+permissions:
+  actions: write
+  contents: read
 jobs:
   build:
     runs-on: ubuntu-latest
