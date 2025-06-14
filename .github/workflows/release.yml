@@ -18,15 +18,50 @@ jobs:
             echo "configPackage=false" >> $GITHUB_OUTPUT;
           fi
 
+  prepare:
+    if: needs.config.outputs.config_package == 'true'
+    needs: config
+    outputs:
+      stableVersion: ${{ steps.resolve.outputs.stableVersion }}
+      unityPackage: ${{ steps.resolve.outputs.unityPackage }}
+      version: ${{ steps.resolve.outputs.version }}
+      zipFile: ${{ steps.resolve.outputs.zipFile }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: version
+        name: Get the Package version based on the package.json file
+        # cspell: disable-next-line
+        uses: sergeysova/jq-action@v2
+        with:
+          cmd: jq -r ".version" "Packages/${{ vars.PACKAGE_NAME }}/package.json"
+      - id: stable-match
+        name: Detect whether the version is a stable release
+        # cspell: disable-next-line
+        uses: kaisugi/action-regex-match@v1.0.1
+        with:
+          flags: gm
+          regex: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+          text: ${{ steps.version.outputs.value }}
+      - id: resolve
+        name: Resolve build environment values
+        run: |
+          echo "stableVersion=${{ steps.stable-match.outputs.match }}" >> $GITHUB_OUTPUT
+          echo "unityPackage=${{ vars.PACKAGE_NAME }}-${{ steps.version.outputs.value }}.unitypackage" >> $GITHUB_OUTPUT
+          echo "version=${{ steps.version.outputs.value }}" >> $GITHUB_OUTPUT
+          echo "zipFile=${{ vars.PACKAGE_NAME }}-${{ steps.version.outputs.value }}.zip" >> $GITHUB_OUTPUT
+
   build:
     env:
       packagePath: Packages/${{ vars.PACKAGE_NAME }}
-      stableVersion: ''
-      unityPackage: ''
-      version: ''
-      zipFile: ''
+      stableVersion: ${{ needs.prepare.outputs.stableVersion }}
+      unityPackage: ${{ needs.prepare.outputs.unityPackage }}
+      version: ${{ needs.prepare.outputs.version }}
+      zipFile: ${{ needs.prepare.outputs.zipFile }}
     if: needs.config.outputs.config_package == 'true'
-    needs: config
+    needs:
+      - config
+      - prepare
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -43,26 +78,6 @@ jobs:
         uses: actions/checkout@v4
       - name: copy the README and LICENSE files to the Package folder
         run: cp README.md LICENSE "${{ env.packagePath }}"
-      - id: version
-        name: Get the Package version based on the package.json file
-        # cspell: disable-next-line
-        uses: sergeysova/jq-action@v2
-        with:
-          cmd: jq -r ".version" "${{ env.packagePath }}/package.json"
-      - id: stable-match
-        name: Detect whether the version is a stable release
-        # cspell: disable-next-line
-        uses: kaisugi/action-regex-match@v1.0.1
-        with:
-          flags: gm
-          regex: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
-          text: ${{ steps.version.outputs.value }}
-      - name: Configure the Environment Variables needed for releasing the Package
-        run: |
-          echo "stableVersion=${{ steps.stable-match.outputs.match }}" >> $GITHUB_ENV
-          echo "unityPackage=${{ vars.PACKAGE_NAME }}-${{ steps.version.outputs.value }}.unitypackage" >> $GITHUB_ENV
-          echo "version=${{ steps.version.outputs.value }}" >> $GITHUB_ENV
-          echo "zipFile=${{ vars.PACKAGE_NAME }}-${{ steps.version.outputs.value }}.zip" >> $GITHUB_ENV
       - name: Zip the Package for release
         run: zip -r -9 "${{ github.workspace }}/${{ env.zipFile }}" .
         working-directory: "${{ env.packagePath }}"
