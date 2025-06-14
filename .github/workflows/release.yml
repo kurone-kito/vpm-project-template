@@ -51,6 +51,17 @@ jobs:
           echo "version=${{ steps.version.outputs.value }}" >> $GITHUB_OUTPUT
           echo "zipFile=${{ vars.PACKAGE_NAME }}-${{ steps.version.outputs.value }}.zip" >> $GITHUB_OUTPUT
 
+  package:
+    if: needs.config.outputs.config_package == 'true'
+    needs:
+      - config
+      - prepare
+    uses: ./.github/workflows/package-build.yml
+    with:
+      packagePath: Packages/${{ vars.PACKAGE_NAME }}
+      unityPackage: ${{ needs.prepare.outputs.unityPackage }}
+      zipFile: ${{ needs.prepare.outputs.zipFile }}
+
   build:
     env:
       packagePath: Packages/${{ vars.PACKAGE_NAME }}
@@ -62,6 +73,7 @@ jobs:
     needs:
       - config
       - prepare
+      - package
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -76,18 +88,16 @@ jobs:
           trust_level: 5
       - name: Checkout Local Repository
         uses: actions/checkout@v4
+      - name: Download package archive
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.zipFile }}
+      - name: Download UnityPackage
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.unityPackage }}
       - name: copy the README and LICENSE files to the Package folder
         run: cp README.md LICENSE "${{ env.packagePath }}"
-      - name: Zip the Package for release
-        run: zip -r -9 "${{ github.workspace }}/${{ env.zipFile }}" .
-        working-directory: "${{ env.packagePath }}"
-      - name: Build a list of .meta files for future use
-        run: find "${{ env.packagePath }}/" -name '*.meta' -type f >> metaList
-      - name: Make a UnityPackage version of the Package for release
-        uses: pCYSl5EDgo/create-unitypackage@v1
-        with:
-          include-files: metaList
-          package-path: ${{ env.unityPackage }}
       - name: Zip the UnityPackage for release
         run: zip -r -9 "${{ env.unityPackage }}.zip" "${{ env.unityPackage }}" LICENSE README.md
       - name: Sign the artifacts
