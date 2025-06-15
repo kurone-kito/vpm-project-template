@@ -26,6 +26,10 @@ jobs:
     steps:
       - name: Checkout Local Repository
         uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4.3.1
+        with:
+          cache: true
+          global-json-file: ./global.json
       - name: Checkout Automation Repository without removing prior checkouts
         uses: actions/checkout@v4
         with:
@@ -41,6 +45,8 @@ jobs:
           path: |
             ${{ inputs.pathToCi }}/.nuke/temp
             ~/.nuget/packages
+          restore-keys: |
+            ${{ runner.os }}-
       - env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         name: Build Package Version Listing with Nuke
@@ -48,6 +54,7 @@ jobs:
       - name: Upload listing artifact
         uses: actions/upload-artifact@v4
         with:
+          if-no-files-found: error
           name: listing-site
           path: ${{ inputs.listPublishDirectory }}
           retention-days: 1
