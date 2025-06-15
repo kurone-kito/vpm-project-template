@@ -70,6 +70,11 @@ Make sure you are creating a **repository variable**, and not a
      - **Name**: `PACKAGE_NAME`
      - **Value**: the name of your package, like `com.vrchat.demo-template`.
 
+Workflows triggered by `pull_request` events also read this variable. Pull
+requests from forks do not have access to repository variables, so the CI
+may fail unless the pull request originates from a branch in the same
+repository.
+
 Finally, go to the "Settings" page for your repo, then choose "Pages", and
 look for the heading "Build and deployment". Change the "Source" dropdown
 from "Deploy from a branch" to "GitHub Actions".
