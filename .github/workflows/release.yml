@@ -64,7 +64,7 @@ jobs:
       unityPackage: ${{ needs.prepare.outputs.unityPackage }}
       zipFile: ${{ needs.prepare.outputs.zipFile }}
 
-  build:
+  release:
     env:
       packagePath: Packages/${{ vars.PACKAGE_NAME }}
       stableVersion: ${{ needs.prepare.outputs.stableVersion }}
