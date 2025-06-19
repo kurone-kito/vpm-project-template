@@ -68,10 +68,6 @@ jobs:
   release:
     env:
       packagePath: Packages/${{ vars.PACKAGE_NAME }}
-      stableVersion: ${{ needs.prepare.outputs.stableVersion }}
-      unityPackage: ${{ needs.prepare.outputs.unityPackage }}
-      version: ${{ needs.prepare.outputs.version }}
-      zipFile: ${{ needs.prepare.outputs.zipFile }}
     if: ${{ needs.config.outputs.config_package == 'true' }}
     needs:
       - config
@@ -92,20 +88,20 @@ jobs:
       - name: Download package archive
         uses: actions/download-artifact@v4
         with:
-          name: ${{ env.zipFile }}
+          name: ${{ needs.prepare.outputs.zipFile }}
       - name: Download UnityPackage
         uses: actions/download-artifact@v4
         with:
-          name: ${{ env.unityPackage }}
+          name: ${{ needs.prepare.outputs.unityPackage }}
       - name: copy the README and LICENSE files to the Package folder
         run: cp README.md LICENSE "${{ env.packagePath }}"
       - name: Zip the UnityPackage for release
-        run: zip -r -9 "${{ env.unityPackage }}.zip" "${{ env.unityPackage }}" LICENSE README.md
+        run: zip -r -9 "${{ needs.prepare.outputs.unityPackage }}.zip" "${{ needs.prepare.outputs.unityPackage }}" LICENSE README.md
       - name: Sign the artifacts
         run: |
-          gpg --batch --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" -ab "${{ env.zipFile }}"
-          gpg --batch --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" -ab "${{ env.unityPackage }}"
-          gpg --batch --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" -ab "${{ env.unityPackage }}.zip"
+          gpg --batch --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" -ab "${{ needs.prepare.outputs.zipFile }}"
+          gpg --batch --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" -ab "${{ needs.prepare.outputs.unityPackage }}"
+          gpg --batch --pinentry-mode loopback --passphrase "${{ secrets.GPG_PASSPHRASE }}" -ab "${{ needs.prepare.outputs.unityPackage }}.zip"
       - id: tag_version
         name: Create a release tag of the version from the package.json file
         # cspell: disable-next-line
@@ -113,17 +109,16 @@ jobs:
         with:
           gpg_passphrase: ${{ secrets.GPG_PASSPHRASE }}
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          tag: "${{ env.version }}"
+          tag: "${{ needs.prepare.outputs.version }}"
       - name: Publish the Release to GitHub
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            ${{ env.zipFile }}
-            ${{ env.zipFile }}.asc
-            ${{ env.unityPackage }}
-            ${{ env.unityPackage }}.asc
-            ${{ env.unityPackage }}.zip
-            ${{ env.unityPackage }}.zip.asc
+            ${{ needs.prepare.outputs.zipFile }}
+            ${{ needs.prepare.outputs.zipFile }}.asc
+            ${{ needs.prepare.outputs.unityPackage }}.asc
+            ${{ needs.prepare.outputs.unityPackage }}.zip
+            ${{ needs.prepare.outputs.unityPackage }}.zip.asc
             ${{ env.packagePath }}/package.json
-          prerelease: ${{ env.stableVersion == '' }}
-          tag_name: ${{ env.version }}
+          prerelease: ${{ needs.prepare.outputs.stableVersion == '' }}
+          tag_name: ${{ needs.prepare.outputs.version }}
