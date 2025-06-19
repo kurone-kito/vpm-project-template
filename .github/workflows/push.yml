@@ -1,3 +1,6 @@
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
 name: The CI workflow on push
 on:
   push:
@@ -5,9 +8,6 @@ on:
       - '*'
       - '!main'
   pull_request:
-permissions:
-  actions: write
-  contents: read
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -19,6 +19,10 @@ jobs:
       - name: Run markdownlint
         uses: DavidAnson/markdownlint-cli2-action@v20
   package:
+    permissions:
+      actions: write
+      contents: read
+    secrets: inherit
     uses: ./.github/workflows/package-build.yml
     with:
       packagePath: Packages/${{ vars.PACKAGE_NAME }}
@@ -26,6 +30,9 @@ jobs:
       zipFile: ${{ vars.PACKAGE_NAME }}-feature.zip
   website:
     needs: package
+    permissions:
+      actions: write
+      contents: read
     uses: ./.github/workflows/build-website.yml
     with:
       listPublishDirectory: Website
