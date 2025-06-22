@@ -34,12 +34,14 @@ jobs:
       - name: Upload package archive
         uses: actions/upload-artifact@v4
         with:
+          if-no-files-found: error
           name: ${{ inputs.zipFile }}
           path: ${{ inputs.zipFile }}
           retention-days: 1
       - name: Upload UnityPackage
         uses: actions/upload-artifact@v4
         with:
+          if-no-files-found: error
           name: ${{ inputs.unityPackage }}
           path: ${{ inputs.unityPackage }}
           retention-days: 1

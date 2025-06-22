@@ -1,3 +1,6 @@
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
 name: Build Release
 
 on:
@@ -59,6 +62,7 @@ jobs:
     needs:
       - config
       - prepare
+    secrets: inherit
     uses: ./.github/workflows/package-build.yml
     with:
       packagePath: Packages/${{ vars.PACKAGE_NAME }}
