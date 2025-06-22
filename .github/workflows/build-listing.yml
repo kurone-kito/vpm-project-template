@@ -32,14 +32,14 @@ concurrency:
   group: pages
 
 jobs:
-  build:
+  website:
     uses: ./.github/workflows/build-website.yml
     with:
       listPublishDirectory: Website
       pathToCi: ci
 
   deploy:
-    needs: build
+    needs: website
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

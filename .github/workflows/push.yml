@@ -12,7 +12,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Local Repository
+        uses: actions/checkout@v4
       - name: Run cspell
         uses: streetsidesoftware/cspell-action@v7
       - name: Run markdownlint
@@ -23,7 +24,7 @@ jobs:
       packagePath: Packages/${{ vars.PACKAGE_NAME }}
       unityPackage: ${{ vars.PACKAGE_NAME }}-feature.unitypackage
       zipFile: ${{ vars.PACKAGE_NAME }}-feature.zip
-  build:
+  website:
     needs: package
     uses: ./.github/workflows/build-website.yml
     with:
