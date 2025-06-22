@@ -49,6 +49,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: listing-site
+          path: Website
       - name: Prepare for GitHub Pages deployment
         uses: actions/configure-pages@v5
         with:
@@ -57,7 +58,7 @@ jobs:
       - name: Upload the VPM Listing Website to GitHub Pages artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ env.listPublishDirectory }}
+          path: Website
       - id: deployment
         name: Deploy the uploaded VPM Listing Website to GitHub Pages
         uses: actions/deploy-pages@v4
