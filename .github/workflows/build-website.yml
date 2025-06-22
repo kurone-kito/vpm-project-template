@@ -26,16 +26,6 @@ jobs:
     steps:
       - name: Checkout Local Repository
         uses: actions/checkout@v4
-      - name: Download package archive
-        if: inputs.zipFile != ''
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ inputs.zipFile }}
-      - name: Download UnityPackage
-        if: inputs.unityPackage != ''
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ inputs.unityPackage }}
       - name: Checkout Automation Repository without removing prior checkouts
         uses: actions/checkout@v4
         with:
