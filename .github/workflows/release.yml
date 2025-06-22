@@ -21,7 +21,7 @@ jobs:
           fi
 
   prepare:
-    if: needs.config.outputs.config_package == 'true'
+    if: ${{ needs.config.outputs.config_package == 'true' }}
     needs: config
     outputs:
       stableVersion: ${{ steps.resolve.outputs.stableVersion }}
@@ -54,7 +54,7 @@ jobs:
           echo "zipFile=${{ vars.PACKAGE_NAME }}-${{ steps.version.outputs.value }}.zip" >> $GITHUB_OUTPUT
 
   package:
-    if: needs.config.outputs.config_package == 'true'
+    if: ${{ needs.config.outputs.config_package == 'true' }}
     needs:
       - config
       - prepare
@@ -71,7 +71,7 @@ jobs:
       unityPackage: ${{ needs.prepare.outputs.unityPackage }}
       version: ${{ needs.prepare.outputs.version }}
       zipFile: ${{ needs.prepare.outputs.zipFile }}
-    if: needs.config.outputs.config_package == 'true'
+    if: ${{ needs.config.outputs.config_package == 'true' }}
     needs:
       - config
       - prepare
