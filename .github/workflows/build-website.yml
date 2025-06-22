@@ -26,16 +26,6 @@ jobs:
     steps:
       - name: Checkout Local Repository
         uses: actions/checkout@v4
-      - name: Download package archive
-        if: inputs.zipFile != ''
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ inputs.zipFile }}
-      - name: Download UnityPackage
-        if: inputs.unityPackage != ''
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ inputs.unityPackage }}
       - name: Checkout Automation Repository without removing prior checkouts
         uses: actions/checkout@v4
         with:
@@ -51,6 +41,8 @@ jobs:
           path: |
             ${{ inputs.pathToCi }}/.nuke/temp
             ~/.nuget/packages
+          restore-keys: |
+            ${{ runner.os }}-
       - env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         name: Build Package Version Listing with Nuke
@@ -58,6 +50,7 @@ jobs:
       - name: Upload listing artifact
         uses: actions/upload-artifact@v4
         with:
+          if-no-files-found: error
           name: listing-site
           path: ${{ inputs.listPublishDirectory }}
           retention-days: 1
