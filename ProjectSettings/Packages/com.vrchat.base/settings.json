@@ -1,6 +1,8 @@
 {
-    "samplesImported": false,
     "allowVRCPackageChanges": false,
+    "debugVCCConnection": false,
+    "dpidConservative": true,
+    "dpidMipmaps": true,
     "samplesHintCreated": true,
-    "debugVCCConnection": false
+    "samplesImported": false
 }
